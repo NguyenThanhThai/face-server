@@ -10,6 +10,9 @@ struct TImage {
 
 struct TFaceRect {
     1: i16 x;
+    2: i16 y;
+    3: i16 w;
+    4: i16 h;
 }
 
 struct TFaceDetectResponse {

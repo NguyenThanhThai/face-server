@@ -32,14 +32,14 @@ namespace po = boost::program_options;
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    int port = 3800;
+    int port = 3700;
     int threads = 4;
     try {
         po::options_description desc("Face Server options");
         desc.add_options()
                 ("help", "produce this help message")
-                ("port", po::value<int>(&port)->default_value(3800), "listen port number")
-                ("thread", po::value<int>(&threads)->default_value(4), "number of threads")
+                ("port", po::value<int>(&port)->default_value(port), "listen port number (default 3700)")
+                ("thread", po::value<int>(&threads)->default_value(threads), "number of threads (default 4)")
                 ;
 
         po::variables_map vm;

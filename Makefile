@@ -12,7 +12,7 @@ SRC=src/main/cpp
 GEN_THRIFT=build/gen-cpp
 INC=-I$(BOOST) -I$(THRIFT)
 INC_SRCS=-I$(SRC) -I$(GEN_THRIFT)
-LIBS=-lc -lz -lboost_thread -lboost_program_options -lthrift -lthriftnb -levent -lopencv_core -lopencv_imgproc -lopencv_objdetect
+LIBS=-lc -lz -lboost_thread -lboost_program_options -lthrift -lthriftnb -levent -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_objdetect
 
 
 

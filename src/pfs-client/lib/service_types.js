@@ -112,9 +112,21 @@ TImage.prototype.write = function(output) {
 
 TFaceRect = module.exports.TFaceRect = function(args) {
   this.x = null;
+  this.y = null;
+  this.w = null;
+  this.h = null;
   if (args) {
     if (args.x !== undefined) {
       this.x = args.x;
+    }
+    if (args.y !== undefined) {
+      this.y = args.y;
+    }
+    if (args.w !== undefined) {
+      this.w = args.w;
+    }
+    if (args.h !== undefined) {
+      this.h = args.h;
     }
   }
 };
@@ -139,9 +151,27 @@ TFaceRect.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 0:
+      case 2:
+      if (ftype == Thrift.Type.I16) {
+        this.y = input.readI16();
+      } else {
         input.skip(ftype);
-        break;
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I16) {
+        this.w = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.I16) {
+        this.h = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -156,6 +186,21 @@ TFaceRect.prototype.write = function(output) {
   if (this.x !== null && this.x !== undefined) {
     output.writeFieldBegin('x', Thrift.Type.I16, 1);
     output.writeI16(this.x);
+    output.writeFieldEnd();
+  }
+  if (this.y !== null && this.y !== undefined) {
+    output.writeFieldBegin('y', Thrift.Type.I16, 2);
+    output.writeI16(this.y);
+    output.writeFieldEnd();
+  }
+  if (this.w !== null && this.w !== undefined) {
+    output.writeFieldBegin('w', Thrift.Type.I16, 3);
+    output.writeI16(this.w);
+    output.writeFieldEnd();
+  }
+  if (this.h !== null && this.h !== undefined) {
+    output.writeFieldBegin('h', Thrift.Type.I16, 4);
+    output.writeI16(this.h);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

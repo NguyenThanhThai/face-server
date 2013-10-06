@@ -1,4 +1,4 @@
-var pis = require('../index'),
+var pfs = require('../index'),
     should = require('should'),
     fs = require('fs'),
     assert = require("assert");
@@ -6,8 +6,8 @@ var pis = require('../index'),
 module.exports = {
     setUp: function (callback) {
         var testSelf = this;
-        should.exist(pis.createClient);
-        this.client = pis.createClient();
+        should.exist(pfs.createClient);
+        this.client = pfs.createClient();
         should.exist(this.client);
 
         this.client.on('connect', function () {
@@ -25,7 +25,7 @@ module.exports = {
         should.exist(this.client.connect);
 
         this.client.connect(function (err) {
-            test.equals(err, null, 'No error should be thrown.' + err);
+            throw err;
         });
         callback();
     },
@@ -51,19 +51,10 @@ module.exports = {
         );
     },
 
-    testResize: function(test) {
-        should.exist(this.client.resize);
-        var buff = new Buffer('abc');
-        this.client.resize(buff, 100, 100, function(err, resizeData, w, h){
-            should.exist(err);
-            console.log('error', err, '\n');
-            test.done();
-        });
-    },
-
-    testResizeRealImage : function(test) {
-        //test real image
-        var pisClient = this.client;
+    testDetectFaces : function(test) {
+        should.exist(this.client.detectFaces);
+        //test with real image
+        var pfsClient = this.client;
         var tester = test;
         fs.readFile('girl.jpg', function(fsErr, data){
             if (fsErr) {
@@ -72,34 +63,11 @@ module.exports = {
             } else {
                 tester.ok(data);
                 tester.ok(data.length > 0);
-                pisClient.resize(data, 100, 80, function(err, resizeData, w, h){
+                pfsClient.detectFaces(data, 199, 300, function(err, faces){
                     should.not.exist(err);
-                    tester.ok(resizeData, 'Resized data should not be null.');
-                    tester.ok(resizeData.length > 0, 'Resized data length should not be 0.');
-                    tester.ok(w > 0, 'Resized width should not be 0.');
-                    tester.ok(h > 0, 'Resized height should not be 0.');
-                    tester.done();
-                });
-            }
-        });
-    },
-
-    testCartoonizeImage : function(test) {
-        var pisClient = this.client;
-        var tester = test;
-        fs.readFile('girl.jpg', function(fsErr, data){
-            if (fsErr) {
-                console.log('error in reading test image file.\n');
-                tester.done();
-            } else {
-                tester.ok(data);
-                tester.ok(data.length > 0);
-                pisClient.cartoonize(data, 100, 80, function(err, returnData, w, h){
-                    should.not.exist(err);
-                    tester.ok(returnData, 'Cartoonized data should not be null.');
-                    tester.ok(returnData.length > 0, 'Cartoonized data length should not be 0.');
-                    tester.ok(w > 0, 'Cartoonized width should not be 0.');
-                    tester.ok(h > 0, 'Cartoonized height should not be 0.');
+                    should.exist(faces);
+                    console.log(faces);
+                    tester.ok(faces.length == 1, 'One face must be detected.');
                     tester.done();
                 });
             }

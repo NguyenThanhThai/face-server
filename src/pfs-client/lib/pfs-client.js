@@ -10,7 +10,7 @@ var thrift = require('thrift'),
  */
 var DEFAULTS = {
     host: '127.0.0.1',
-    port: 3800
+    port: 3700
 };
 
 /**
@@ -79,6 +79,35 @@ Client.prototype.ping = function (callback) {
         callback(e, null);
     }
 };
+
+/**
+ * detectFaces function, to detect faces in the input image
+ * @param imageData input image binary buffer
+ * @param width requested width
+ * @param height requested height
+ * @param callback in format function(err, faces)
+ */
+Client.prototype.detectFaces = function (imageData, width, height, callback) {
+    var self = this;
+    try {
+        var request = new ttypes.TImage({data: imageData, width: width, height: height});
+        this.thriftClient.detectFaces(request, function (err, response) {
+            if (err) {
+                callback(err, null, null, null);
+            } else if (response.error) {
+                callback(response.error, null, null, null);
+            } else if (response.faces) {
+                callback(null, response.faces);
+            } else {
+                callback('Illegal State - Empty response', null, null, null);
+            }
+        });
+    } catch (e) {
+        self.emit('error', e);
+        callback(e, null, null, null);
+    }
+};
+
 
 /**
  * resize function, to resize
