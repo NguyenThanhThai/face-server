@@ -1,0 +1,33 @@
+{
+  "name": "pfs-client",
+  "version": "0.0.1",
+  "description": "Node.js client for FaceServer - Peach Project",
+  "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "nodeunit test/test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:masgari/face-server.git"
+    },
+    "keywords": [
+        "Peach",
+        "FaceServer",
+        "Thrift",
+        "client",
+        "opencv"
+    ],
+    "author": "Mamad Asgari",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/masgari/face-server/issues"
+    },
+
+    "devDependencies": {
+        "mocha": "",
+        "should": ""
+    }
+}
