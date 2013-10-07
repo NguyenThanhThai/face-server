@@ -8,8 +8,6 @@
 #ifndef FACESERVICEIMPL_H
 #define	FACESERVICEIMPL_H
 
-#include <opencv2/contrib/contrib.hpp>
-
 #include "../../../build/gen-cpp/service_constants.h"
 #include "../../../build/gen-cpp/service_types.h"
 #include "../../../build/gen-cpp/FaceService.h"
@@ -28,10 +26,11 @@ public:
     };
 
 private:
+    void *pClassifier;
+    
     int8_t handlePing();
     void handleDetectFaces(TFaceDetectResponse& _return, const TImage& request);
-    
-    CascadeClassifier* pClassifier;
+        
 };
 
 #endif	/* FACESERVICEIMPL_H */

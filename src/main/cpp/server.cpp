@@ -14,7 +14,6 @@
 #include <sys/param.h>
 #include <unistd.h>
 
-
 #include <boost/program_options.hpp>
 #include "FaceServiceImpl.h"
 

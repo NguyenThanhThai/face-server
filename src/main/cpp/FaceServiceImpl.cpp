@@ -45,7 +45,7 @@ void FaceServiceImpl::handleDetectFaces(TFaceDetectResponse& _return, const TIma
     }
 
     vector<Rect> faces;
-    pClassifier->detectMultiScale(*img, faces);
+    ((CascadeClassifier*)pClassifier)->detectMultiScale(*img, faces);
     printf("Faces detected:%d\n", faces.size());
     vector<TFaceRect> tFaces;
     for (size_t i = 0; i < faces.size(); i++){

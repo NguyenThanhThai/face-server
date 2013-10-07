@@ -68,6 +68,10 @@ module.exports = {
                     should.exist(faces);
                     console.log(faces);
                     tester.ok(faces.length == 1, 'One face must be detected.');
+                    tester.ok(faces[0].x > 0, 'Face dimension checking.');
+                    tester.ok(faces[0].y > 0, 'Face dimension checking.');
+                    tester.ok(faces[0].w > 0, 'Face dimension checking.');
+                    tester.ok(faces[0].h > 0, 'Face dimension checking.');
                     tester.done();
                 });
             }
